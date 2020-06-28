@@ -9,6 +9,7 @@ import {
   Platform,
   ViewPropTypes,
 } from "react-native";
+import TextInputPropTypes from "react-native/Libraries/DeprecatedPropTypes/DeprecatedTextInputPropTypes";
 
 import Line from "../line";
 import Label from "../label";
@@ -64,7 +65,7 @@ export default class TextField extends PureComponent {
   };
 
   static propTypes = {
-    ...TextInput.propTypes,
+    ...TextInputPropTypes,
 
     animationDuration: PropTypes.number,
 
@@ -82,9 +83,15 @@ export default class TextField extends PureComponent {
 
     labelOffset: Label.propTypes.offset,
 
-    labelTextStyle: Text.propTypes.style,
-    titleTextStyle: Text.propTypes.style,
-    affixTextStyle: Text.propTypes.style,
+    labelTextStyle: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
+    titleTextStyle: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
+    affixTextStyle: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    ),
 
     tintColor: PropTypes.string,
     textColor: PropTypes.string,
@@ -447,7 +454,7 @@ export default class TextField extends PureComponent {
   inputProps() {
     let store = {};
 
-    for (let key in TextInput.propTypes) {
+    for (let key in TextInputPropTypes) {
       if ("defaultValue" === key) {
         continue;
       }
